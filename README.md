@@ -1,10 +1,20 @@
-# clj-meowallet
+# Clj-MeoWallet
 
-A Clojure library designed to ... well, that part is up to you.
+# Clj MEO WALLET [![Build Status](https://travis-ci.org/weareswat/clj-meowallet.svg?branch=master)](https://travis-ci.org/weareswat/clj-meowallet)
+[![Clojars Project](http://clojars.org/weareswat/clj-meowallet/latest-version.svg)](http://clojars.org/clj-mailgun)
 
-## Usage
+A Clojure Wrapper to MEO WALLET API.
 
-FIXME
+Installation
+-----
+
+```clj-meowallet``` is available as a Maven artifact from [Clojars](http://clojars.org/weareswat/clj-meowallet)
+
+With Leiningen/Boot:
+
+```clojure
+[clj-meowallet "0.0.1"]
+```
 
 ## License
 
