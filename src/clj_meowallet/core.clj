@@ -9,3 +9,9 @@
   (cond
     (env :production) production-url
     :else sandbox-url))
+
+(defn authentify
+  [data http-ops]
+  (if-let [token (:token data)]
+    (assoc http-ops :headers {"Authorization: WalletPT " token})
+    http-ops))
