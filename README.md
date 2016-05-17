@@ -14,6 +14,14 @@ With Leiningen/Boot:
 [clj-meowallet "0.0.1"]
 ```
 
+#### Tests
+
+* `lein test` - runs the test suite *
+* `script/autotest` -listen for file changes and is always running tests
+
+* To Run the integration test you should provide a valid Meo Wallet API KEY with access to mb references api.
+  `MEO_WALLET_API_KEY=<YOUR_MEO_WALLET_API_KEY> lein test`
+
 ## License
 
 Copyright © 2016 FIXME
