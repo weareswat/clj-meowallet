@@ -16,7 +16,7 @@ With Leiningen/Boot:
 
 ### Operations
 
-For now we just have create new mb ref operation, but in the near future we will support more operations.
+For now we just have to create new mb ref operation, but in the near future we will support more operations. Every operation has an async interface, so it returns a channel.
 
 * `POST to /api/v2/mb/pay`
 
@@ -31,11 +31,11 @@ For now we just have create new mb ref operation, but in the near future we will
         data {:body {:amount 10
               		   :currency "EUR"
                      :expires "2016-05-18T15:59:58+0000"
-                     :ext_invoiceid "i00001232"}}])
+                     :ext_invoiceid "i00001232"}}]
     (meowallet/generate-mb-ref credentials data)))
 ```
 
-The `meowallet/generate-mb-ref` has an async interface, so it returns a channel and should return data in the following format:
+The `meowallet/generate-mb-ref` should return data in the following format:
 
 ```
 {:amount 10
