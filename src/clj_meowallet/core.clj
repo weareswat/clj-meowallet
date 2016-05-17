@@ -14,15 +14,15 @@
 
 (defn add-headers
   [credentials http-ops]
-  (if-let [token (:token credentials)]
-    (assoc http-ops :headers {"Content-Type:" "application/json"
-                              "Authorization: WalletPT " token})
+  (if-let [token (:meo-wallet-api-key credentials)]
+    (assoc http-ops :headers {"Content-Type" "application/json"
+                              "Authorization" (str "WalletPT " token)})
     http-ops))
 
 (defn add-body
   [http-ops data]
   (if-let [body (:body data)]
-    (assoc http-ops :body body)
+    (assoc http-ops :body (meowallet-http/parse-body body))
     http-ops))
 
 (def mb-ref-url "mb/pay")

@@ -16,18 +16,30 @@
 (defn- prepare-response
   "Handles post-response"
   [data response]
-  (merge {:status (:status response)
-          :requests (inc (:requests data))}
-         (json/parse-string (slurp (:body response)) true)))
+  (try
+    (merge {:status (:status response)
+            :requests (inc (:requests data))}
+           (json/parse-string (slurp (:body response)) true))
+    (catch Exception ex
+      {:exception ex})))
+
+(defn parse-body
+  [body]
+  (if (or (map? body) (seq? body))
+    (json/generate-string body)
+    body))
 
 (defn- prepare-error
   "Handles post-response errors"
   [data response]
-  (-> response
-      (assoc :error (str "Error getting " (:url data)))
-      (assoc :requests (inc (:requests data)))
-      (assoc :status (-> response :data :cause))
-      (assoc :body-data (slurp (-> response :data :body)))))
+  (try
+    (-> response
+        (assoc :error (str "Error getting " (:url data)))
+        (assoc :requests (inc (:requests data)))
+        (assoc :status (-> response :data :cause))
+        (assoc :body-data (slurp (-> response :data :body))))
+    (catch Exception ex
+      {:exception ex})))
 
 (defn fetch-response
   "Fetches the response for a given URL"
