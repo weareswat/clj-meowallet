@@ -6,7 +6,7 @@ A Clojure Wrapper to MEO WALLET API.
 Installation
 -----
 
-```clj-meowallet``` is available as a Maven artifact from [Clojars](http://clojars.org/weareswat/clj-meowallet)
+```clj-meowallet``` is available as a Maven artifact from [Clojars](https://clojars.org/weareswat/clj-meowallet)
 
 With Leiningen/Boot:
 
