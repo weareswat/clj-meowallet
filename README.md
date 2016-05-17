@@ -1,5 +1,5 @@
 # Clj MEO WALLET [![Build Status](https://travis-ci.org/weareswat/clj-meowallet.svg?branch=master)](https://travis-ci.org/weareswat/clj-meowallet)
-[![Clojars Project](http://clojars.org/weareswat/clj-meowallet/latest-version.svg)](http://clojars.org/clj-mailgun)
+[![Clojars Project](https://clojars.org/weareswat/clj-meowallet/latest-version.svg)](https://clojars.org/weareswat/clj-meowallet)
 
 A Clojure Wrapper to MEO WALLET API.
 
