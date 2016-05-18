@@ -30,23 +30,22 @@
                                         :qt 1}]
                                :ext_invoiceid "C12423324"}}}
         result (core/add-body data {})]
-    (is (= (:body data)
-           (:body result)))))
+    (is (:body result))))
 
 (deftest prepare-data-test
   (let [credentials {:meo-wallet-api-key "qweqweqwk"}
-        data {:body {:payment {:client {:name "John Santos"
-                                        :email "johnsantos@mail.com"
-                                        :address {:country "pt"
-                                                  :address "Av. Fontes Pereira de Melo"
-                                                  :city "Lisboa"}}
-                               :amount 229
-                               :currency "EUR"
-                               :items [{:ref 123
-                                        :name "InvoiceXpress plan"
-                                        :descr "New subscription to invoicexpress"
-                                        :qt 1}]
-                               :ext_invoiceid "C12423324"}}}
+        data {:payment {:client {:name "John Santos"
+                                 :email "johnsantos@mail.com"
+                                 :address {:country "pt"
+                                           :address "Av. Fontes Pereira de Melo"
+                                           :city "Lisboa"}}
+                        :amount 229
+                        :currency "EUR"
+                        :items [{:ref 123
+                                 :name "InvoiceXpress plan"
+                                 :descr "New subscription to invoicexpress"
+                                 :qt 1}]
+                        :ext_invoiceid "C12423324"}}
         path core/mb-ref-url
         method :post
         result (core/prepare-data credentials data path method)]
@@ -74,23 +73,22 @@
         (is (not (nil? (:method-fn result)))))))
 
 (deftest generate-mb-ref-test
-  (if-not (env :meo_wallet_api_key)
+  (if-not (env :meo-wallet-api-key)
     (println "Warning: No meo wallet api key on env (ignoring test)")
 
-    (let [credentials {:meo-wallet-api-key (env :meo_wallet_api_key)}
-          body {:amount 10
-              :currency "EUR"
-              :expires "2016-05-18T15:59:58+0000"
-              :ext_invoiceid "i00001232"}
-        data {:body body}
+    (let [credentials {:meo-wallet-api-key (env :meo-wallet-api-key)}
+          data {:amount 10
+                :currency "EUR"
+                :expired_at "2016-05-18T15:59:58+0000"
+                :ext_invoiceid "i00001232"}
         result (<!! (core/generate-mb-ref credentials data))]
 
     (testing "amount"
-      (is (= (:amount body)
+      (is (= (:amount data)
              (:amount result))))
 
     (testing "currency"
-      (is (= (:currency body)
+      (is (= (:currency data)
              (:currency result))))
 
     (testing "method"
@@ -101,9 +99,9 @@
       (is (= "PAYMENT"
              (:type result))))
 
-    (testing "expires"
-      (is (= (:expires body)
-             (:expires result))))
+    ;(testing "expired_at"
+    ;  (is (= (:expired_at data)
+    ;         (:expired_at result))))
 
     (testing "status"
       (is (= "PENDING"

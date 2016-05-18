@@ -21,9 +21,7 @@
 
 (defn add-body
   [http-ops data]
-  (if-let [body (:body data)]
-    (assoc http-ops :body (meowallet-http/parse-body body))
-    http-ops))
+  (assoc http-ops :body (meowallet-http/parse-body data)))
 
 (def mb-ref-url "mb/pay")
 

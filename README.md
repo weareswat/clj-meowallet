@@ -28,10 +28,10 @@ For now we just have to create new mb ref operation, but in the near future we w
 (defn example-of-request-an-mb-ref
   []
   (let [credentials {:meo-wallet-api-key <YOUR_MEO_WALLET_API_KEY>}
-        data {:body {:amount 10
-              		   :currency "EUR"
-                     :expires "2016-05-18T15:59:58+0000"
-                     :ext_invoiceid "i00001232"}}]
+        data {:amount 10
+              :currency "EUR"
+              :expired_at "2016-05-18T15:59:58+0000"
+              :ext_invoiceid "i00001232"}}]
     (meowallet/generate-mb-ref credentials data)))
 ```
 
