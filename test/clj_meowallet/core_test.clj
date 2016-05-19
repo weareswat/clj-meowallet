@@ -1,5 +1,6 @@
 (ns clj-meowallet.core-test
   (:require [environ.core :refer [env]]
+            [result.core :as result]
             [clojure.test :refer :all]
             [clojure.core.async :refer [<!!]]
             [clj-meowallet.core :as core]))
@@ -79,7 +80,6 @@
     (let [credentials {:meo-wallet-api-key (env :meo-wallet-api-key)}
           data {:amount 10
                 :currency "EUR"
-                :expired_at "2016-05-18T15:59:58+0000"
                 :ext_invoiceid "i00001232"}
         result (<!! (core/generate-mb-ref credentials data))]
 
@@ -99,9 +99,11 @@
       (is (= "PAYMENT"
              (:type result))))
 
+    (testing "success"
+      (is (result/succeeded? result)))
+
     ;(testing "expired_at"
-    ;  (is (= (:expired_at data)
-    ;         (:expired_at result))))
+    ;  (is (:expired_at result)))
 
     (testing "status"
       (is (= "PENDING"
