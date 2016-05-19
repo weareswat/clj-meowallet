@@ -17,7 +17,8 @@
   "Handles post-response"
   [data response]
   (try
-    (merge {:status (:status response)
+    (merge {:success true
+            :status (:status response)
             :requests (inc (:requests data))}
            (json/parse-string (slurp (:body response)) true))
     (catch Exception ex
@@ -34,6 +35,7 @@
   [data response]
   (try
     (-> response
+        (assoc :success false)
         (assoc :error (str "Error getting " (:url data)))
         (assoc :requests (inc (:requests data)))
         (assoc :status (-> response :data :cause))
