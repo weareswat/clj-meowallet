@@ -29,6 +29,7 @@
   [credentials data path method]
   (let [host (host)
         http-opts (-> (add-headers credentials {})
+                      (assoc :throw-exceptions? false)
                       (add-body data))]
     (assoc data :host host
                 :requests 0

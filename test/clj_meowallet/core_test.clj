@@ -79,6 +79,7 @@
 
     (let [credentials {:meo-wallet-api-key (env :meo-wallet-api-key)}
           data {:amount 10
+                :expires "2060-05-19T23:12:58+0000"
                 :currency "EUR"
                 :ext_invoiceid "i00001232"}
         result (<!! (core/generate-mb-ref credentials data))]
@@ -102,8 +103,8 @@
     (testing "success"
       (is (result/succeeded? result)))
 
-    ;(testing "expired_at"
-    ;  (is (:expired_at result)))
+    (testing "expires"
+      (is (:expires result)))
 
     (testing "status"
       (is (= "PENDING"
@@ -114,3 +115,17 @@
         (is (get-in result [:mb :ref])))
       (testing "entity"
         (is (get-in result [:mb :entity])))))))
+
+(deftest generate-mb-ref-with-invalid-api-key-test
+  (let [credentials {:meo-wallet-api-key "qweqweqw"}
+        data {:amount 10
+              :currency "EUR"
+              :ext_invoiceid "i00001232"}
+      result (<!! (core/generate-mb-ref credentials data))]
+
+  (testing "status"
+    (is (= 401
+           (:status result))))
+
+  (testing "success"
+    (is (result/failed? result)))))
