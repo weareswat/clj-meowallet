@@ -11,7 +11,7 @@ Installation
 With Leiningen/Boot:
 
 ```clojure
-[clj-meowallet "0.1.0"]
+[weareswat/clj-meowallet "0.1.0"]
 ```
 
 ### Operations

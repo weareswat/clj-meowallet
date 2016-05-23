@@ -14,64 +14,8 @@
   (let [credentials {:meo-wallet-api-key "qweqweqwk"}
         headers {"Content-Type" "application/json"
                  "Authorization" (str "WalletPT " (:meo-wallet-api-key credentials))}
-        result (core/add-headers credentials {})]
-    (is (= headers (:headers result)))))
-
-(deftest add-body-test
-  (let [data {:body {:payment {:client {:name "John Santos"
-                                        :email "johnsantos@mail.com"
-                                        :address {:country "pt"
-                                                  :address "Av. Fontes Pereira de Melo"
-                                                  :city "Lisboa"}}
-                               :amount 229
-                               :currency "EUR"
-                               :items [{:ref 123
-                                        :name "InvoiceXpress plan"
-                                        :descr "New subscription to invoicexpress"
-                                        :qt 1}]
-                               :ext_invoiceid "C12423324"}}}
-        result (core/add-body data {})]
-    (is (:body result))))
-
-(deftest prepare-data-test
-  (let [credentials {:meo-wallet-api-key "qweqweqwk"}
-        data {:payment {:client {:name "John Santos"
-                                 :email "johnsantos@mail.com"
-                                 :address {:country "pt"
-                                           :address "Av. Fontes Pereira de Melo"
-                                           :city "Lisboa"}}
-                        :amount 229
-                        :currency "EUR"
-                        :items [{:ref 123
-                                 :name "InvoiceXpress plan"
-                                 :descr "New subscription to invoicexpress"
-                                 :qt 1}]
-                        :ext_invoiceid "C12423324"}}
-        path core/mb-ref-url
-        method :post
-        result (core/prepare-data credentials data path method)]
-
-      (testing "host"
-        (is (= (core/host)
-               (:host result))))
-
-      (testing "retries"
-        (is (= 2
-               (:retries result))))
-
-      (testing "url"
-        (is (= (str (core/host) path)
-               (:url result))))
-
-      (testing "request-method"
-        (is (= method
-               (:request-method result))))
-
-      (testing "http-ops"
-        (is (not (nil? (:http-opts result)))))
-
-      (testing "method-fn"
-        (is (not (nil? (:method-fn result)))))))
+        result (core/headers credentials)]
+    (is (= headers result))))
 
 (deftest generate-mb-ref-test
   (if-not (env :meo-wallet-api-key)
