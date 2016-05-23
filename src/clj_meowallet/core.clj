@@ -18,15 +18,32 @@
      "Authorization" (str "WalletPT " token)}))
 
 (def mb-ref-url "mb/pay")
+(def verify-callback-url "callback/verify")
 
 (defn prepare-data
-  [credentials data]
+  [credentials data path]
   (assoc data :host (host)
-              :path mb-ref-url
+              :path path
               :headers (headers credentials)
               :body data))
 
+(defn prepare-data-to-generate-mb-ref
+  [credentials data]
+  (prepare-data credentials data mb-ref-url))
+
 (defn generate-mb-ref
   [credentials data]
-  (-> (prepare-data credentials data)
+  "This fn generates an mb-ref by doing a request to the path given by `mb-ref-url`"
+  (-> (prepare-data-to-generate-mb-ref credentials data)
+      (request-utils/http-post)))
+
+(defn prepare-data-to-verify-callback
+  [credentials data]
+  (prepare-data credentials data verify-callback-url))
+
+(defn verify-callback
+  "This fn verifies if the callback data is valid or not by doing a 
+  request to the path given by `verify-callback-url`"
+  [credentials data]
+  (-> (prepare-data-to-verify-callback credentials data)
       (request-utils/http-post)))

@@ -1,4 +1,4 @@
-(defproject weareswat/clj-meowallet "0.4.0"
+(defproject weareswat/clj-meowallet "0.5.0"
   :description "FIXME: write description"
   :url "https://github.com/weareswat/clj-meowallet"
   :license {:name "Eclipse Public License"
