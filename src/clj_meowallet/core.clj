@@ -22,10 +22,10 @@
 
 (defn prepare-data
   [credentials data path]
-  (assoc data :host (host)
-              :path path
-              :headers (headers credentials)
-              :body data))
+  {:host (host)
+   :path path
+   :headers (headers credentials)
+   :body data})
 
 (defn prepare-data-to-generate-mb-ref
   [credentials data]
@@ -43,7 +43,7 @@
 
 (defn verify-callback
   "This fn verifies if the callback data is valid or not by doing a 
-  request to the path given by `verify-callback-url`"
+   request to the path given by `verify-callback-url`"
   [credentials data]
   (-> (prepare-data-to-verify-callback credentials data)
       (request-utils/http-post)))
